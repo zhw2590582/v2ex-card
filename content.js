@@ -31,7 +31,8 @@
     const $summary = dom.querySelector("#Main .box .gray");
     const joinRank = $summary.textContent.match(/\s(\d+)\s/)[1];
     const joinTime = $summary.textContent.match(/\s(\d{4}-.*\+08:00)/)[1];
-    const activityRank = $summary.querySelector("a").textContent;
+    const $activity = $summary.querySelector("a");
+    const activityRank = $activity ? $activity.textContent : "";
     return {
       name: $avatar.alt,
       avatar: $avatar.src,
