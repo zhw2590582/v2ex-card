@@ -1,5 +1,5 @@
 (function () {
-  const cache = {};
+  const infoCache = {};
   const domParser = new DOMParser();
 
   function debounce(func, wait, context) {
@@ -25,20 +25,32 @@
     }
   }
 
+  function getInfoFromText(text) {
+    const dom = domParser.parseFromString(text, "text/html");
+    const $avatar = dom.querySelector(".avatar");
+    const $summary = dom.querySelector("#Main .box .gray");
+    const joinRank = $summary.textContent.match(/\s(\d+)\s/)[1];
+    const joinTime = $summary.textContent.match(/\s(\d{4}-.*\+08:00)/)[1];
+    const activityRank = $summary.querySelector("a").textContent;
+    return {
+      name: $avatar.alt,
+      avatar: $avatar.src,
+      joinRank: joinRank,
+      joinTime: joinTime,
+      activityRank: activityRank,
+      topic: [],
+    };
+  }
+
   function getMemberInfo(memberUrl) {
-    if (cache[memberUrl]) {
-      return Promise.resolve(cache[memberUrl]);
+    if (infoCache[memberUrl]) {
+      return Promise.resolve(infoCache[memberUrl]);
     }
     return fetch(memberUrl)
       .then((res) => res.text())
       .then((text) => {
-        const dom = domParser.parseFromString(text, "text/html");
-        cache[memberUrl] = {
-          url: memberUrl,
-          name: dom.querySelector(".avatar").alt,
-          avatar: dom.querySelector(".avatar").src,
-        };
-        return cache[memberUrl];
+        infoCache[memberUrl] = getInfoFromText(text);
+        return infoCache[memberUrl];
       });
   }
 
