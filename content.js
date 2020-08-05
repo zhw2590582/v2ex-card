@@ -55,12 +55,16 @@
       });
   }
 
+  function render(event, memberInfo) {
+    console.log(event, memberInfo);
+  }
+
   function onMouseMove(event) {
     const memberUrl = getMemberUrl(event);
     if (memberUrl) {
       getMemberInfo(memberUrl)
         .then((memberInfo) => {
-          console.log(memberInfo);
+          render(event, memberInfo);
         })
         .catch((err) => {
           console.warn(err);
