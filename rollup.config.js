@@ -9,14 +9,15 @@ const postcss = require('rollup-plugin-postcss');
 const worker = require('rollup-plugin-worker-inline');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
+const path = require('path');
 const { name, version, homepage } = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
-module.exports = ['background', 'content', 'injected'].map(item => {
+module.exports = ['background', 'content', 'injected'].map((item) => {
     return {
         input: `src/${item}/dev/index.js`,
         output: {
-            name: `bilibiliLiveRecorder${item[0].toUpperCase()}${item.slice(1)}`,
+            name: `v2exCard${item[0].toUpperCase()}${item.slice(1)}`,
             file: isProd ? `dist/${name}/${item}/index.js` : `src/${item}/index.js`,
             format: 'iife',
             sourcemap: !isProd,
@@ -52,14 +53,16 @@ module.exports = ['background', 'content', 'injected'].map(item => {
                     }),
                 ],
                 sourceMap: !isProd,
-                extract: isProd ? `dist/${name}/${item}/index.css` : `src/${item}/index.css`,
+                extract: isProd
+                    ? path.resolve(process.cwd(), `dist/${name}/${item}/index.css`)
+                    : path.resolve(process.cwd(), `src/${item}/index.css`),
             }),
             isProd &&
                 terser({
                     output: {
                         preamble:
                             '/*!\n' +
-                            ` * bilibili-live-recorder v${version}\n` +
+                            ` * v2ex-card v${version}\n` +
                             ` * Github: ${homepage}\n` +
                             ` * (c) 2018-${new Date().getFullYear()} Harvey Zack\n` +
                             ' * Released under the MIT License.\n' +
