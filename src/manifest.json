@@ -1,7 +1,7 @@
 {
-    "name": "v2ex-card",
+    "name": "v2ex 悬停名片",
     "version": "1.0.0",
-    "description": "v2ex 名片卡",
+    "description": "鼠标经过用户名或者头像时，自动展示该用户的简介信息。",
     "manifest_version": 2,
     "background": {
         "scripts": [

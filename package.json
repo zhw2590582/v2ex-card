@@ -1,7 +1,7 @@
 {
   "name": "v2ex-card",
   "version": "1.0.0",
-  "description": "v2ex 名片卡",
+  "description": "v2ex 悬停名片",
   "homepage": "https://github.com/zhw2590582/v2ex-card",
   "scripts": {
     "dev": "cross-env NODE_ENV=development rollup -c -m -w",
