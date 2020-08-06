@@ -10,9 +10,17 @@
     position: fixed;
     padding-top: 10px;
     width: 280px;
-    height: 200px;
     left: 0;
     top: 0;
+
+    &.vc-hide,
+    .vc-hide {
+        display: none !important;
+    }
+
+    a {
+        color: #666;
+    }
 
     .vc-inner {
         position: relative;
@@ -88,9 +96,41 @@
                 }
             }
         }
+
+        .vc-socials {
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e1e4e8;
+            a {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                margin: 3px 5px 3px 0;
+                background-color: #f1f1f1;
+                padding: 4px 6px;
+                border-radius: 3px;
+
+                img {
+                    margin-right: 5px;
+                }
+
+                &:hover {
+                    background-color: #ccc;
+                }
+            }
+        }
     }
 
-    &.vc-hide {
-        display: none;
+    .vc-topics {
+        padding: 8px;
+
+        a {
+            display: block;
+            margin-bottom: 3px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     }
 }

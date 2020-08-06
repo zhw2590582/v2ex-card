@@ -136,9 +136,9 @@ class Injected {
         this.$card.innerHTML = `
             <div class="vc-inner">
                 <div class="vc-header">
-                    <a class="vc-avatar" href="/member/${info.name}">
+                    <div class="vc-avatar">
                         <img src="${info.avatar}" alt="${info.name}" width="48" height="48" />
-                    </a>
+                    </div>
                     <div class="vc-info">
                         <div class="vc-row">
                             <span class="vc-name">${info.name}</span>
@@ -146,12 +146,27 @@ class Injected {
                         </div>
                         <div class="vc-row">
                             <span class="vc-join-rank">No.${info.joinRank}</span>
-                            <span class="vc-activity-rank">Active Today: ${info.activityRank || 0}</span>
+                            <span class="vc-activity-rank ${info.activityRank ? '' : `vc-hide`}">
+                                Active Today: ${info.activityRank}
+                            </span>
                         </div>
                         <div class="vc-row">
                             Join: ${info.joinTime}
                         </div>
                     </div>
+                </div>
+                <div class="vc-socials ${info.socials.length ? '' : `vc-hide`}">
+                    ${info.socials
+                        .map((item) => {
+                            return `<a href="${item.href}" title="${item.name}" target="_blank"><img src="${item.img}" alt="${info.name}"  width="16" height="16"/>${item.name}</a>`;
+                        })
+                        .join('')}
+                </div>
+                <div class="vc-topics ${info.topics.length ? '' : `vc-hide`}">
+                    ${info.topics
+                        .slice(0, 5)
+                        .map((item) => `<a href="${item.href}" title="${item.title}">${item.title}</a>`)
+                        .join('')}
                 </div>
             </div>
         `;
