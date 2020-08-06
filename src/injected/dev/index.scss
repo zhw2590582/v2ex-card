@@ -8,9 +8,8 @@
     color: #666;
     font-size: 13px;
     position: fixed;
-    display: flex;
     padding-top: 10px;
-    width: 250px;
+    width: 280px;
     height: 200px;
     left: 0;
     top: 0;
@@ -23,9 +22,10 @@
         border: 1px solid #e1e4e8;
         border-radius: 5px;
         box-shadow: 0 8px 10px rgba(149, 157, 165, 0.2);
+
         &:before {
             top: -16px;
-            right: 118px;
+            right: 131px;
             left: auto;
             position: absolute;
             display: inline-block;
@@ -36,13 +36,57 @@
 
         &:after {
             top: -14px;
-            right: 119px;
+            right: 132px;
             left: auto;
             border: 7px solid transparent;
             border-bottom-color: #fff;
             position: absolute;
             display: inline-block;
             content: '';
+        }
+
+        .vc-header {
+            display: flex;
+            padding: 8px;
+            border-bottom: 1px solid #e1e4e8;
+
+            .vc-avatar {
+                height: 48px;
+                img {
+                    border-radius: 4px;
+                }
+            }
+
+            .vc-info {
+                flex: 1;
+                line-height: 1;
+                padding-left: 8px;
+                color: rgba(0, 0, 0, 0.5);
+
+                .vc-row {
+                    margin-bottom: 5px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .vc-name {
+                    color: #555;
+                    font-weight: bold;
+                }
+
+                .vc-online {
+                    padding: 1px 4px;
+                    border-radius: 3px;
+                    margin-left: 5px;
+                    color: #fff;
+                    background-color: #52bf1c;
+                }
+
+                .vc-activity-rank {
+                    margin-left: 5px;
+                }
+            }
         }
     }
 

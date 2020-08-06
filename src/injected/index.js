@@ -91,6 +91,7 @@ var v2exCardInjected = (function () {
       this.current = null;
       this.domParser = new DOMParser();
       document.body.addEventListener('mousemove', this.onMouseMove.bind(this));
+      window.addEventListener('scroll', this.onScroll.bind(this));
     }
 
     createClass(Injected, [{
@@ -107,6 +108,13 @@ var v2exCardInjected = (function () {
             console.warn(err);
           });
         } else if (this.$card && !event.composedPath().includes(this.$card)) {
+          addClass(this.$card, 'vc-hide');
+        }
+      }
+    }, {
+      key: "onScroll",
+      value: function onScroll() {
+        if (this.$card) {
           addClass(this.$card, 'vc-hide');
         }
       }
@@ -190,7 +198,7 @@ var v2exCardInjected = (function () {
               _this2.infoCache[memberUrl] = _this2.getInfoFromText(text);
               resolve(_this2.infoCache[memberUrl]);
             });
-          }, 500);
+          }, 200);
         });
       }
     }, {
@@ -214,7 +222,7 @@ var v2exCardInjected = (function () {
       }
     }, {
       key: "render",
-      value: function render(event, memberUrl, memberInfo) {
+      value: function render(event, url, info) {
         if (!this.$card) {
           this.$card = document.createElement('div');
           this.$card.className = 'v2ex-card';
@@ -229,10 +237,10 @@ var v2exCardInjected = (function () {
 
         this.$card.style.left = "".concat(left, "px");
         this.$card.style.top = "".concat(top, "px");
-        if (memberUrl === this.current) return;
-        this.current = memberUrl;
-        console.log(memberInfo);
-        this.$card.innerHTML = "\n            <div class=\"vc-inner\">1</div>\n        ";
+        if (url === this.current) return;
+        this.current = url;
+        console.log(info);
+        this.$card.innerHTML = "\n            <div class=\"vc-inner\">\n                <div class=\"vc-header\">\n                    <a class=\"vc-avatar\" href=\"/member/".concat(info.name, "\">\n                        <img src=\"").concat(info.avatar, "\" alt=\"").concat(info.name, "\" width=\"48\" height=\"48\" />\n                    </a>\n                    <div class=\"vc-info\">\n                        <div class=\"vc-row\">\n                            <span class=\"vc-name\">").concat(info.name, "</span>\n                            ").concat(info.online ? '<span class="vc-online">online</span>' : '', "\n                        </div>\n                        <div class=\"vc-row\">\n                            <span class=\"vc-join-rank\">No.").concat(info.joinRank, "</span>\n                            <span class=\"vc-activity-rank\">Active Today: ").concat(info.activityRank || 0, "</span>\n                        </div>\n                        <div class=\"vc-row\">\n                            Join: ").concat(info.joinTime, "\n                        </div>\n                    </div>\n                </div>\n            </div>\n        ");
       }
     }]);
 

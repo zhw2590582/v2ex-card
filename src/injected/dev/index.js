@@ -9,6 +9,7 @@ class Injected {
         this.current = null;
         this.domParser = new DOMParser();
         document.body.addEventListener('mousemove', this.onMouseMove.bind(this));
+        window.addEventListener('scroll', this.onScroll.bind(this));
     }
 
     onMouseMove(event) {
@@ -22,6 +23,12 @@ class Injected {
                     console.warn(err);
                 });
         } else if (this.$card && !event.composedPath().includes(this.$card)) {
+            addClass(this.$card, 'vc-hide');
+        }
+    }
+
+    onScroll() {
+        if (this.$card) {
             addClass(this.$card, 'vc-hide');
         }
     }
@@ -93,7 +100,7 @@ class Injected {
                         this.infoCache[memberUrl] = this.getInfoFromText(text);
                         resolve(this.infoCache[memberUrl]);
                     });
-            }, 500);
+            }, 200);
         });
     }
 
@@ -109,7 +116,7 @@ class Injected {
         };
     }
 
-    render(event, memberUrl, memberInfo) {
+    render(event, url, info) {
         if (!this.$card) {
             this.$card = document.createElement('div');
             this.$card.className = 'v2ex-card';
@@ -122,12 +129,31 @@ class Injected {
         this.$card.style.left = `${left}px`;
         this.$card.style.top = `${top}px`;
 
-        if (memberUrl === this.current) return;
-        this.current = memberUrl;
+        if (url === this.current) return;
+        this.current = url;
 
-        console.log(memberInfo);
+        console.log(info);
         this.$card.innerHTML = `
-            <div class="vc-inner">1</div>
+            <div class="vc-inner">
+                <div class="vc-header">
+                    <a class="vc-avatar" href="/member/${info.name}">
+                        <img src="${info.avatar}" alt="${info.name}" width="48" height="48" />
+                    </a>
+                    <div class="vc-info">
+                        <div class="vc-row">
+                            <span class="vc-name">${info.name}</span>
+                            ${info.online ? '<span class="vc-online">online</span>' : ''}
+                        </div>
+                        <div class="vc-row">
+                            <span class="vc-join-rank">No.${info.joinRank}</span>
+                            <span class="vc-activity-rank">Active Today: ${info.activityRank || 0}</span>
+                        </div>
+                        <div class="vc-row">
+                            Join: ${info.joinTime}
+                        </div>
+                    </div>
+                </div>
+            </div>
         `;
     }
 }
