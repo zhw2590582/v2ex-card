@@ -5,13 +5,13 @@
     "manifest_version": 2,
     "background": {
         "scripts": [
-            "background.js"
+            "background/index.js"
         ]
     },
     "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
     },
     "browser_action": {},
     "permissions": [
@@ -23,13 +23,14 @@
                 "*://*.v2ex.com/*"
             ],
             "js": [
-                "content.js"
+                "content/index.js"
             ],
             "all_frames": true
         }
     ],
     "web_accessible_resources": [
-        "injected.js"
+        "injected/index.js",
+        "injected/index.css"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

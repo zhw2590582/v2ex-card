@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,kDAGE,qBAAwB","file":"src/injected/index.css","sourcesContent":[".v2ex-card *,\n.v2ex-card *::before,\n.v2ex-card *::after {\n  box-sizing: border-box; }\n"]}
