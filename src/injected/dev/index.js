@@ -65,7 +65,6 @@ class Injected {
                 name: $item.textContent.trim(),
             };
         });
-        const lock = !!dom.querySelector('#Main .box .topic_content');
         const $topic = [...dom.querySelectorAll('#Main .box .topic-link')];
         const topics = $topic.map(($item) => {
             return {
@@ -73,16 +72,36 @@ class Injected {
                 title: $item.textContent.trim(),
             };
         });
+
+        const follow = {
+            value: 'Follow',
+            onclick: `location.href = '/signin'`,
+        };
+        const block = {
+            value: 'Block',
+            onclick: `location.href = '/signin'`,
+        };
+        const $function = dom.querySelectorAll('#Main [type="button"]');
+        if ($function.length === 2) {
+            const $follow = $function[0];
+            follow.value = $follow.value === '取消特别关注' ? 'Unfollow' : 'Follow';
+            follow.onclick = $follow.getAttribute('onclick');
+            const $block = $function[1];
+            block.value = $block.value;
+            block.onclick = $block.getAttribute('onclick');
+        }
+
         return {
             name,
             avatar,
             online,
-            lock,
             joinRank,
             joinTime,
             activityRank,
             socials,
             topics,
+            follow,
+            block,
         };
     }
 
@@ -132,7 +151,6 @@ class Injected {
         if (url === this.current) return;
         this.current = url;
 
-        console.log(info);
         this.$card.innerHTML = `
             <div class="vc-inner">
                 <div class="vc-header">
@@ -153,6 +171,14 @@ class Injected {
                         <div class="vc-row">
                             Join: ${info.joinTime}
                         </div>
+                    </div>
+                </div>
+                <div class="vc-function">
+                    <div class="vc-item" onclick="${info.follow.onclick}">
+                        ${info.follow.value}
+                    </div>
+                    <div class="vc-item" onclick="${info.block.onclick}">
+                        ${info.block.value}
                     </div>
                 </div>
                 <div class="vc-socials ${info.socials.length ? '' : `vc-hide`}">

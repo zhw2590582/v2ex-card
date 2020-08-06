@@ -158,7 +158,6 @@ var v2exCardInjected = (function () {
             name: $item.textContent.trim()
           };
         });
-        var lock = !!dom.querySelector('#Main .box .topic_content');
 
         var $topic = toConsumableArray(dom.querySelectorAll('#Main .box .topic-link'));
 
@@ -168,16 +167,36 @@ var v2exCardInjected = (function () {
             title: $item.textContent.trim()
           };
         });
+        var follow = {
+          value: 'Follow',
+          onclick: "location.href = '/signin'"
+        };
+        var block = {
+          value: 'Block',
+          onclick: "location.href = '/signin'"
+        };
+        var $function = dom.querySelectorAll('#Main [type="button"]');
+
+        if ($function.length === 2) {
+          var $follow = $function[0];
+          follow.value = $follow.value === '取消特别关注' ? 'Unfollow' : 'Follow';
+          follow.onclick = $follow.getAttribute('onclick');
+          var $block = $function[1];
+          block.value = $block.value;
+          block.onclick = $block.getAttribute('onclick');
+        }
+
         return {
           name: name,
           avatar: avatar,
           online: online,
-          lock: lock,
           joinRank: joinRank,
           joinTime: joinTime,
           activityRank: activityRank,
           socials: socials,
-          topics: topics
+          topics: topics,
+          follow: follow,
+          block: block
         };
       }
     }, {
@@ -239,8 +258,7 @@ var v2exCardInjected = (function () {
         this.$card.style.top = "".concat(top, "px");
         if (url === this.current) return;
         this.current = url;
-        console.log(info);
-        this.$card.innerHTML = "\n            <div class=\"vc-inner\">\n                <div class=\"vc-header\">\n                    <div class=\"vc-avatar\">\n                        <img src=\"".concat(info.avatar, "\" alt=\"").concat(info.name, "\" width=\"48\" height=\"48\" />\n                    </div>\n                    <div class=\"vc-info\">\n                        <div class=\"vc-row\">\n                            <span class=\"vc-name\">").concat(info.name, "</span>\n                            ").concat(info.online ? '<span class="vc-online">online</span>' : '', "\n                        </div>\n                        <div class=\"vc-row\">\n                            <span class=\"vc-join-rank\">No.").concat(info.joinRank, "</span>\n                            <span class=\"vc-activity-rank ").concat(info.activityRank ? '' : "vc-hide", "\">\n                                Active Today: ").concat(info.activityRank, "\n                            </span>\n                        </div>\n                        <div class=\"vc-row\">\n                            Join: ").concat(info.joinTime, "\n                        </div>\n                    </div>\n                </div>\n                <div class=\"vc-socials ").concat(info.socials.length ? '' : "vc-hide", "\">\n                    ").concat(info.socials.map(function (item) {
+        this.$card.innerHTML = "\n            <div class=\"vc-inner\">\n                <div class=\"vc-header\">\n                    <div class=\"vc-avatar\">\n                        <img src=\"".concat(info.avatar, "\" alt=\"").concat(info.name, "\" width=\"48\" height=\"48\" />\n                    </div>\n                    <div class=\"vc-info\">\n                        <div class=\"vc-row\">\n                            <span class=\"vc-name\">").concat(info.name, "</span>\n                            ").concat(info.online ? '<span class="vc-online">online</span>' : '', "\n                        </div>\n                        <div class=\"vc-row\">\n                            <span class=\"vc-join-rank\">No.").concat(info.joinRank, "</span>\n                            <span class=\"vc-activity-rank ").concat(info.activityRank ? '' : "vc-hide", "\">\n                                Active Today: ").concat(info.activityRank, "\n                            </span>\n                        </div>\n                        <div class=\"vc-row\">\n                            Join: ").concat(info.joinTime, "\n                        </div>\n                    </div>\n                </div>\n                <div class=\"vc-function\">\n                    <div class=\"vc-item\" onclick=\"").concat(info.follow.onclick, "\">\n                        ").concat(info.follow.value, "\n                    </div>\n                    <div class=\"vc-item\" onclick=\"").concat(info.block.onclick, "\">\n                        ").concat(info.block.value, "\n                    </div>\n                </div>\n                <div class=\"vc-socials ").concat(info.socials.length ? '' : "vc-hide", "\">\n                    ").concat(info.socials.map(function (item) {
           return "<a href=\"".concat(item.href, "\" title=\"").concat(item.name, "\" target=\"_blank\"><img src=\"").concat(item.img, "\" alt=\"").concat(info.name, "\"  width=\"16\" height=\"16\"/>").concat(item.name, "</a>");
         }).join(''), "\n                </div>\n                <div class=\"vc-topics ").concat(info.topics.length ? '' : "vc-hide", "\">\n                    ").concat(info.topics.slice(0, 5).map(function (item) {
           return "<a href=\"".concat(item.href, "\" title=\"").concat(item.title, "\">").concat(item.title, "</a>");

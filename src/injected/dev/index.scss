@@ -69,7 +69,7 @@
                 flex: 1;
                 line-height: 1;
                 padding-left: 8px;
-                color: rgba(0, 0, 0, 0.5);
+                color: #999;
 
                 .vc-row {
                     margin-bottom: 5px;
@@ -97,6 +97,25 @@
             }
         }
 
+        .vc-function {
+            display: flex;
+
+            .vc-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 1;
+                height: 30px;
+                cursor: pointer;
+                border-bottom: 1px solid #e1e4e8;
+                border-right: 1px solid #e1e4e8;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
         .vc-socials {
             padding: 8px;
             display: flex;
@@ -105,7 +124,6 @@
             a {
                 display: flex;
                 align-items: center;
-                text-decoration: none;
                 margin: 3px 5px 3px 0;
                 background-color: #f1f1f1;
                 padding: 4px 6px;
@@ -113,10 +131,6 @@
 
                 img {
                     margin-right: 5px;
-                }
-
-                &:hover {
-                    background-color: #ccc;
                 }
             }
         }
