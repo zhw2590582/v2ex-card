@@ -106,7 +106,7 @@ var v2exCardInjected = (function () {
           })["catch"](function (err) {
             console.warn(err);
           });
-        } else if (this.$card) {
+        } else if (this.$card && !event.composedPath().includes(this.$card)) {
           addClass(this.$card, 'vc-hide');
         }
       }
@@ -206,7 +206,7 @@ var v2exCardInjected = (function () {
             height = _$el$getBoundingClien.height;
 
         var left = x + width - clientWidth / 2 - width / 2;
-        var top = y + height + 10;
+        var top = y + height;
         return {
           left: left,
           top: top
@@ -232,6 +232,7 @@ var v2exCardInjected = (function () {
         if (memberUrl === this.current) return;
         this.current = memberUrl;
         console.log(memberInfo);
+        this.$card.innerHTML = "\n            <div class=\"vc-inner\">1</div>\n        ";
       }
     }]);
 

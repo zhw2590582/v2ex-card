@@ -8,7 +8,6 @@ class Injected {
         this.infoCache = {};
         this.current = null;
         this.domParser = new DOMParser();
-
         document.body.addEventListener('mousemove', this.onMouseMove.bind(this));
     }
 
@@ -22,7 +21,7 @@ class Injected {
                 .catch((err) => {
                     console.warn(err);
                 });
-        } else if (this.$card) {
+        } else if (this.$card && !event.composedPath().includes(this.$card)) {
             addClass(this.$card, 'vc-hide');
         }
     }
@@ -103,7 +102,7 @@ class Injected {
         const { clientWidth } = this.$card;
         const { x, y, width, height } = $el.getBoundingClientRect();
         const left = x + width - clientWidth / 2 - width / 2;
-        const top = y + height + 10;
+        const top = y + height;
         return {
             left,
             top,
@@ -116,13 +115,20 @@ class Injected {
             this.$card.className = 'v2ex-card';
             document.body.appendChild(this.$card);
         }
+
         removeClass(this.$card, 'vc-hide');
+
         const { left, top } = this.getPosFromEvent(event);
         this.$card.style.left = `${left}px`;
         this.$card.style.top = `${top}px`;
+
         if (memberUrl === this.current) return;
         this.current = memberUrl;
+
         console.log(memberInfo);
+        this.$card.innerHTML = `
+            <div class="vc-inner">1</div>
+        `;
     }
 }
 
