@@ -2,7 +2,7 @@
 
 ## 安装
 
-[![https://chrome.google.com/webstore/detail/nagmkdppcmenlcgelpgkjoknakghllml](./images/tryitnow.png)](https://chrome.google.com/webstore/detail/nagmkdppcmenlcgelpgkjoknakghllml)
+[![https://chrome.google.com/webstore/detail/mjkbenjlcheekihglddgaokeggnlgncd](./images/tryitnow.png)](https://chrome.google.com/webstore/detail/mjkbenjlcheekihglddgaokeggnlgncd)
 
 ## 截图
 
