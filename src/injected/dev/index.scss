@@ -1,3 +1,8 @@
+// 与 v2ex plus 悬浮名片冲突，所以需要屏蔽
+#userInfo {
+    display: none !important;
+}
+
 .v2ex-card {
     *,
     *::before,

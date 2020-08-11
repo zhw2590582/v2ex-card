@@ -39,6 +39,9 @@ class Injected {
         if ($el.tagName === 'A' && reg.test($el.pathname || '')) {
             return $el.pathname;
         }
+        if ($el.parentElement && $el.parentElement.tagName === 'A' && reg.test($el.parentElement.pathname || '')) {
+            return $el.parentElement.pathname;
+        }
         if ($el.tagName === 'IMG' && $el.className === 'avatar' && $el.alt) {
             return `/member/${$el.alt}`;
         }

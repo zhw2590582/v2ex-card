@@ -128,6 +128,10 @@ var v2exCardInjected = (function () {
           return $el.pathname;
         }
 
+        if ($el.parentElement && $el.parentElement.tagName === 'A' && reg.test($el.parentElement.pathname || '')) {
+          return $el.parentElement.pathname;
+        }
+
         if ($el.tagName === 'IMG' && $el.className === 'avatar' && $el.alt) {
           return "/member/".concat($el.alt);
         }
